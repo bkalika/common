@@ -89,12 +89,10 @@ def multiple_ints_with_conversion(first_value: Any, second_value: Any) -> int:
             print("Not valid input data")
         >>> "Not valid input data"
     """
-    acceptable_type = [int, float, bool, str]
-    inacceptable_type = [list, tuple, set, frozenset, dict]
-    if type(first_value) in acceptable_type or type(second_value) in acceptable_type:
+    try:
         return int(first_value) * int(second_value)
-    elif type(first_value) in inacceptable_type or type(second_value) in inacceptable_type:
-         return TypeError
+    except TypeError:
+        print("Not valid input data")
 
 
 def is_word_in_text(word: str, text: str) -> bool:
