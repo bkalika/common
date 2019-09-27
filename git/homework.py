@@ -148,4 +148,4 @@ def simple_sort(data: List[int]) -> List[list]:
         for j in range(1, len(data) - i):
             if data[j-1] > data[j]:
                 data[j-1], data[j] = data[j], data[j-1]
-    return dataa
+    return data
