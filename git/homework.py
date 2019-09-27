@@ -80,10 +80,10 @@ def multiple_ints_with_conversion(first_value: Any, second_value: Any) -> int:
             print("Not valid input data")
         >>> "Not valid input data"
     """
-    try:
+    if False:
+        raise TypeError("Not valid input data")
+    else:
         return int(first_value) * int(second_value)
-    except TypeError:
-        print("Not valid input data")
 
 
 def is_word_in_text(word: str, text: str) -> bool:
@@ -121,7 +121,7 @@ def remove_from_list_all_negative_numbers(data: List[int]) -> list:
         remove_from_list_all_negative_numbers([1, 5, -7, 8, -1])
         >>> [1, 5, 8]
     """
-    return [i for i in data if i > 0]
+    return [i for i in data if i >= 0]
 
 
 def alphabet() -> dict:
@@ -132,7 +132,7 @@ def alphabet() -> dict:
         alphabet()
         >>> {"a": 1, "b": 2 ...}
     """
-    return {chr(i + 96): i for i in range(1, 27)}
+    return {i: chr(i+96) for i in range(1, 27)}
 
 
 def simple_sort(data: List[int]) -> List[list]:
