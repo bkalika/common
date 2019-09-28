@@ -1,3 +1,16 @@
 .idea/
 venv-git/
 .idea/
+_linux/
+codestyles/
+inspection/
+venv-sql/
+colors.scheme.xml
+dbnavigator.xml
+debugger.xml
+diff.xml
+filetypes.xml
+github.xml
+notifications.xml
+studioSettings.xml
+vcs.xml
