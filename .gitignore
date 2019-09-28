@@ -1,2 +1,12 @@
+venv-sql/
 .idea/
-venv-git
+_linux/
+codestyle/
+inspection/
+color.scheme.xml
+dbnavigator.xml
+debugger.xml
+github.xml
+notificationx.xml
+studioSettings.xml
+vcs.xml
