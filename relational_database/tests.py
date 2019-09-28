@@ -6,9 +6,9 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
-from relational_database.config import TEST_DATABASE, DATABASE, FIXTURES_PATH
-from relational_database.db_utils import init_tables, clear_tables, fill_tables, drop_tables
-from relational_database.homework import \
+from config import TEST_DATABASE, DATABASE, FIXTURES_PATH
+from db_utils import init_tables, clear_tables, fill_tables, drop_tables
+from homework import \
     (task_1_add_new_record_to_db,
      task_2_list_all_customers,
      task_3_list_customers_in_germany,

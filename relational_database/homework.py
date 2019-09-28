@@ -1,7 +1,10 @@
 from typing import List
+import psycopg2
+from config import DATABASE
 
-
-def task_1_add_new_record_to_db(con) -> None:
+conn = psycopg2.connect(**DATABASE)
+cur = None
+def task_1_add_new_record_to_db(con) -> None:Bogdan.kali
     """
     Add a record for a new customer from Singapore
     {
@@ -19,8 +22,11 @@ def task_1_add_new_record_to_db(con) -> None:
     Returns: 92 records
 
     """
-    pass
-
+    with con.cursor() as cursor:
+        cursor.execute(
+                "INSERT INTO customers VALUES(92, 'Thomas', 'David', 'Some Address', 'London', '774', 'Singapore')"
+                    )
+        con.commit()
 
 def task_2_list_all_customers(cur) -> list:
     """
@@ -32,7 +38,9 @@ def task_2_list_all_customers(cur) -> list:
     Returns: 91 records
 
     """
-    pass
+    cur.execute("SELECT * FROM customers;")
+    return cur.fetchall()
+
 
 
 def task_3_list_customers_in_germany(cur) -> list:
@@ -44,7 +52,8 @@ def task_3_list_customers_in_germany(cur) -> list:
 
     Returns: 11 records
     """
-    pass
+    cur.execute("SELECT * FROM customers WHERE city = 'Germany'")
+    return cur.fetchall()
 
 
 def task_4_update_customer(con):
@@ -56,7 +65,9 @@ def task_4_update_customer(con):
     Returns: 91 records with updated customer
 
     """
-    pass
+    con = con.cursor()
+    cursor.execute("UPDATE Customers SET customername = 'Johnny Depp' WHERE customer_id=1")
+    con.commit()
 
 
 def task_5_delete_the_last_customer(con) -> None:
