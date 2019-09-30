@@ -132,10 +132,9 @@ def task_8_count_customers_by_city(cur):
         SELECT COUNT(CustomerName), city 
         FROM customers 
         GROUP BY city 
-        ORDER BY COUNT(CustomerName) ASC, city DESC
+        ORDER BY city DESC
     """)
     res = cur.fetchall()
-    res.sort(key=lambda x: x['city'], reverse=True)
     return res
 
 
@@ -227,7 +226,7 @@ def task_14_list_products_with_supplier_information(cur):
     cur.execute("""
         SELECT productid, productname, unit, price, country, city, suppliername
         FROM products p
-        RIGHT JOIN suppliers s
+        LEFT JOIN suppliers s
         ON p.SupplierID=s.SupplierID
     """)
     return cur.fetchall()
@@ -245,7 +244,7 @@ def task_15_list_customers_with_any_order_or_not(cur):
         SELECT customername, contactname, country, orderid
         FROM customers c
         LEFT JOIN orders o 
-        ON c.CustomerID=o.CustomerID\
+        ON c.CustomerID=o.CustomerID
     """)
     return cur.fetchall()
 

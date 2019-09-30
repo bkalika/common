@@ -163,7 +163,6 @@ class TestSQLQueries(unittest.TestCase):
             actual_result = task_8_count_customers_by_city(cursor)
             actual_result = [dict(record) for record in actual_result]
             expected_result = self.load_rows_from_file("task_8.json")
-            expected_result = [r_dict for r_dict in sorted(expected_result, key=lambda x: x['city'], reverse=True)]
 
         for i, row in enumerate(actual_result):
             self.assertDictEqual(row, expected_result[i])
