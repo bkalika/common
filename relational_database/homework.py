@@ -1,9 +1,11 @@
-from typing import List
 import psycopg2
+
 from config import DATABASE
 
 conn = psycopg2.connect(**DATABASE)
 cur = None
+
+
 def task_1_add_new_record_to_db(con) -> None:
     """
     Add a record for a new customer from Singapore
@@ -24,8 +26,9 @@ def task_1_add_new_record_to_db(con) -> None:
     """
     with con.cursor() as cursor:
         cursor.execute("""
-            INSERT INTO customers 
-            VALUES(92, 'Thomas', 'David', 'Some Address', 'London', '774', 'Singapore')
+            INSERT INTO customers
+            VALUES(92, 'Thomas', 'David', 'Some Address', 'London', '774', 
+            'Singapore')
         """)
         con.commit()
 
@@ -68,8 +71,7 @@ def task_4_update_customer(con):
     """
     with con.cursor() as cursor:
         cursor.execute("""
-            UPDATE Customers 
-            SET customername = 'Johnny Depp' 
+            UPDATE Customers SET customername = 'Johnny Depp'
             WHERE customerid = 1
         """)
         con.commit()
@@ -84,7 +86,7 @@ def task_5_delete_the_last_customer(con) -> None:
     """
     with con.cursor() as cursor:
         cursor.execute("""
-            DELETE FROM customers 
+            DELETE FROM customers
             WHERE customerid = (SELECT MAX(customerid) FROM Customers)
         """)
         con.commit()
@@ -129,18 +131,16 @@ def task_8_count_customers_by_city(cur):
 
     """
     cur.execute("""
-        SELECT COUNT(CustomerName), city 
-        FROM customers 
-        GROUP BY city 
-        ORDER BY city DESC
+        SELECT COUNT(CustomerName), city
+        FROM customers GROUP BY city ORDER BY city DESC
     """)
-    res = cur.fetchall()
-    return res
+    return cur.fetchall()
 
 
 def task_9_count_customers_by_country_with_than_10_customers(cur):
     """
-    List the number of customers in each country. Only include countries with more than 10 customers.
+    List the number of customers in each country. Only include countries
+    with more than 10 customers.
 
     Args:
         cur: psycopg cursor
@@ -148,9 +148,8 @@ def task_9_count_customers_by_country_with_than_10_customers(cur):
     Returns: 3 records
     """
     cur.execute("""
-        SELECT COUNT(customername), country 
-        FROM customers 
-        GROUP BY country 
+        SELECT COUNT(customername), country
+        FROM customers GROUP BY country
         HAVING COUNT(customername) > 10
     """)
     return cur.fetchall()
@@ -189,9 +188,8 @@ def task_12_list_suppliers_from_specified_countries(cur):
     Returns: 8 records
     """
     cur.execute("""
-        SELECT supplierid, SupplierName, contactname, city, country 
-        FROM suppliers 
-        WHERE country IN ('UK', 'USA', 'Japan')
+        SELECT supplierid, SupplierName, contactname, city, country
+        FROM suppliers WHERE country IN ('UK', 'USA', 'Japan')
     """)
     return cur.fetchall()
 
@@ -206,8 +204,7 @@ def task_13_list_products_from_sweden_suppliers(cur):
     Returns: 3 records
     """
     cur.execute("""
-        SELECT ProductName 
-        FROM products p
+        SELECT ProductName FROM products p
         JOIN suppliers s ON p.SupplierID=s.SupplierID
         WHERE s.country = 'Sweden'
     """)
@@ -225,11 +222,11 @@ def task_14_list_products_with_supplier_information(cur):
     """
     cur.execute("""
         SELECT productid, productname, unit, price, country, city, suppliername
-        FROM products p
-        LEFT JOIN suppliers s
+        FROM products p LEFT JOIN suppliers s
         ON p.SupplierID=s.SupplierID
     """)
     return cur.fetchall()
+
 
 def task_15_list_customers_with_any_order_or_not(cur):
     """
@@ -242,8 +239,7 @@ def task_15_list_customers_with_any_order_or_not(cur):
     """
     cur.execute("""
         SELECT customername, contactname, country, orderid
-        FROM customers c
-        LEFT JOIN orders o 
+        FROM customers c LEFT JOIN orders o
         ON c.CustomerID=o.CustomerID
     """)
     return cur.fetchall()
@@ -259,10 +255,11 @@ def task_16_match_all_customers_and_suppliers_by_country(cur):
     Returns: 194 records
     """
     cur.execute("""
-        SELECT c.customername, c.address, c.country as customercountry, s.country as suppliercountry, s.suppliername
-        FROM customers c
-        FULL JOIN suppliers s
+        SELECT c.customername, c.address, c.country as customercountry, 
+        s.country as suppliercountry, s.suppliername
+        FROM customers c FULL JOIN suppliers s
         ON c.Country=s.Country
         ORDER BY c.country, s.country
     """)
     return cur.fetchall()
+
