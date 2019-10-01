@@ -6,5 +6,18 @@
         <option name="macAddress" value="74-E5-43-75-CB-A8" />
       </GeneralSettings>
     </option>
+    <option name="sdkSettings">
+      <SdkSettings>
+        <option name="allSdks">
+          <list>
+            <SdkInfo>
+              <option name="sdkType" value="ODPS_CMD" />
+              <option name="installedLocation" value="$APPLICATION_PLUGINS_DIR$/odps-studio-intellij/odpscmd_public" />
+              <option name="isDefault" value="true" />
+            </SdkInfo>
+          </list>
+        </option>
+      </SdkSettings>
+    </option>
   </component>
 </application>
