@@ -15,3 +15,7 @@ vcs.xml
 
 
 __pycache__/
+git/__pycache__
+python_functionality/venv relational_database/venv
+git/venv-git
+python_functionality/.idea relational_database/.idea
