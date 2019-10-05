@@ -1,14 +1,21 @@
 .idea/
-venv-git/
+codestyles/
+inspection/
+_linux/
 venv-sql/
 colors.scheme.xml
 dbnavigator.xml
 debugger.xml
 diff.xml
 filetypes.xml
-colors.scheme.xml
-dbnavigator.xml
-debugger.xml
-diff.xml
-filetypes.xml
-*.xml
+github.xml
+notifications.xml
+studioSettings.xml
+vcs.xml
+
+
+__pycache__/
+git/__pycache__
+python_functionality/venv relational_database/venv
+git/venv-git
+python_functionality/.idea relational_database/.idea
