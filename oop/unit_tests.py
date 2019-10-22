@@ -196,87 +196,90 @@ class TestDoor(unittest.TestCase):
 
 
 class TestHouse(unittest.TestCase):
+    def setUp(self) -> None:
+        self.house = [
+            House(),
+        ]
+
     def test_get_count_of_walls(self):
-        wall1 = House()
-        # wall2 = House()
-        # wall3 = House()
-        wall1.create_wall(3, 2)
-        # wall2.create_wall(2, 2)
-        # wall3.create_wall(2, 3)
-        self.assertEqual(1, wall1.get_count_of_walls())
-        # self.assertEqual(1, wall2.get_count_of_walls())
-        # self.assertEqual(2, wall3.get_count_of_walls())
+        wall = House()
+        wall_meter = [wall.create_wall(2, 2), wall.create_wall(2, 3), wall.create_wall(5, 2), wall.create_wall(5, 5)]
+        self.assertEqual(4, wall.get_count_of_walls())
 
     def test_get_count_of_windows(self):
-        window1 = House()
-        window1.create_window(2, 1)
-        self.assertEqual(1, window1.get_count_of_windows())
+        window = House()
+        window.create_window(2, 1)
+        self.assertEqual(1, window.get_count_of_windows())
 
     def test_get_door_price(self):
-        price1 = House()
-        price1.create_door(2, 2)
-        self.assertEqual(40, price1.get_door_price("wood"))
+        price = House()
+        price.create_door(2, 2)
+        self.assertEqual(40, price.get_door_price("wood"))
 
     def test_update_wood_price(self):
-        price1 = House()
-        price1.create_door(2, 2)
-        price1.update_wood_price(40)
-        self.assertEqual(160, price1.get_door_price("wood"))
+        price = House()
+        price.create_door(2, 2)
+        price.update_wood_price(40)
+        self.assertEqual(160, price.get_door_price("wood"))
 
     def test_update_metal_price(self):
-        price1 = House()
-        price1.create_door(2, 2)
-        price1.update_metal_price(15)
-        self.assertEqual(60, price1.get_door_price("metal"))
+        price = House()
+        price.create_door(2, 2)
+        price.update_metal_price(15)
+        self.assertEqual(60, price.get_door_price("metal"))
 
     def test_roof_square(self):
-        roof1 = House()
-        roof1.create_roof(2, 2, "gable")
-        self.assertEqual(8, roof1.get_roof_square())
+        roof = House()
+        roof.create_roof(2, 2, "gable")
+        self.assertEqual(8, roof.get_roof_square())
 
     def test_sum_of_walls_square(self):
-        wall1 = House()
-        # wall2 = House()
-        # wall3 = House()
-        # wall4 = House()
-        # wall5 = House()
-        wall1.create_wall(2, 2)
-        # wall2.create_wall(5, 5)
-        # wall3.create_wall(3, 2)
-        # wall4.create_wall(4, 4)
-        # wall5.create_wall(2, 3)
-        # self.assertEqual(4, wall1.get_walls_square())
-        # self.assertEqual(29, wall2.get_walls_square())
-        # self.assertEqual(35, wall3.get_walls_square())
-        # self.assertEqual(5, wall4.get_walls_square())
-        # with self.assertRaises(ValueError):
-        #     wall5.create_wall(2, 3)
+        result = [4, 29, 38, 54]
+        wall_h_w = [2, 5, 3, 4]
+        wall = House()
+        split = zip(wall_h_w, result)
+        for w, res in split:
+            with self.subTest():
+                wall.create_wall(w, w)
+                self.assertEqual(res, wall.get_walls_square())
+        for w, res in split:
+            result.append(2)
+            wall_h_w.append(2)
+            with self.assertRaises(ValueError):
+                wall.create_wall(w, w)
 
     def test_get_windows_square(self):
-        window1 = House()
-        # window2 = House()
-        # window3 = House()
-        window1.create_window(2, 1)
-        # window2.create_window(2, 2)
-        # self.assertEqual(2, window1.get_windows_square())
-        self.assertEqual(4, window1.get_windows_square())
-        # with self.assertRaises(ValueError):
-        #     window3.create_window(0, 0)
+        result = [4, 29, 38, 54]
+        window_h_w = [2, 5, 3, 4]
+        window = House()
+        split = zip(window_h_w, result)
+        for w, res in split:
+            window.create_window(w, w)
+            self.assertEqual(res, window.get_windows_square())
+        for w in split:
+            result.append(0)
+            window_h_w.append(0)
+            with self.assertRaises(ValueError):
+                window.create_window(w, w)
 
     def test_get_door_square(self):
-        door1 = House()
-        door1.create_door(2, 2)
-        # door1.create_door(2, 3)
-        # self.assertEqual(5, door1.get_door_square())
-        with self.assertRaises(ValueError):
-            door1.create_door(0, 0)
+        door = House()
+        result = [4]
+        door_h_w = [2]
+        split = zip(door_h_w, result)
+        for d, res in split:
+            door.create_door(d, d)
+            self.assertEqual(res, door.get_door_square())
+        for d in split:
+            result.append(5)
+            door_h_w.append(5)
+            with self.assertRaises(ValueError):
+                door.create_door(d, d)
 
     def test_number_of_rolls_of_wallpapers(self):
-        roll1 = House()
-        # roll = Wall()
-        roll1.create_wall(20, 10)
-        # roll.number_of_rolls_of_wallpaper(1, 5)
-        self.assertEqual(25.5, roll1.get_number_of_rolls_of_wallpapers(2, 4))
+        roll = House()
+        roll.create_wall(20, 10)
+        self.assertEqual(25.0, roll.get_number_of_rolls_of_wallpapers(2, 4))
 
 
 if __name__ == "__main__":
