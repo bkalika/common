@@ -116,7 +116,7 @@ class Cheetah(Cat):
     def _set_average_speed(self):
         value_average_speed = {
             self.age <= 5: 90,
-            5 <= self.age <= 15: 75,
+            5 < self.age <= 15: 75,
             self.age > 15: 40,
         }
         return value_average_speed.get(True)
@@ -337,16 +337,10 @@ class House:
         return self.__roof.roof_square()
 
     def get_walls_square(self):
-        all_walls = []
-        for wall in self.__walls:
-            all_walls.append(wall.wall_square())
-        return sum(all_walls)
+        return sum([wall.wall_square() for wall in self.__walls])
 
     def get_windows_square(self):
-        all_windows = []
-        for window in self.__windows:
-            all_windows.append(window.window_square())
-        return sum(all_windows)
+        return sum([window.window_square() for window in self.__windows])
 
     def get_door_square(self):
         return self.__door.door_square()

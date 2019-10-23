@@ -201,15 +201,19 @@ class TestHouse(unittest.TestCase):
             House(),
         ]
 
-    def test_get_count_of_walls(self):
+    def test_get_count_and_sum_of_walls(self):
         wall = House()
         wall_meter = [wall.create_wall(2, 2), wall.create_wall(2, 3), wall.create_wall(5, 2), wall.create_wall(5, 5)]
         self.assertEqual(4, wall.get_count_of_walls())
+        self.assertEqual(45, wall.get_walls_square())
 
-    def test_get_count_of_windows(self):
+    def test_get_count_and_sum_of_windows(self):
         window = House()
         window.create_window(2, 1)
         self.assertEqual(1, window.get_count_of_windows())
+        self.assertEqual(2, window.get_windows_square())
+        with self.assertRaises(ValueError):
+            window.create_window(0, 0)
 
     def test_get_door_price(self):
         price = House()
@@ -233,35 +237,6 @@ class TestHouse(unittest.TestCase):
         roof.create_roof(2, 2, "gable")
         self.assertEqual(8, roof.get_roof_square())
 
-    def test_sum_of_walls_square(self):
-        result = [4, 29, 38, 54]
-        wall_h_w = [2, 5, 3, 4]
-        wall = House()
-        split = zip(wall_h_w, result)
-        for w, res in split:
-            with self.subTest():
-                wall.create_wall(w, w)
-                self.assertEqual(res, wall.get_walls_square())
-        for w, res in split:
-            result.append(2)
-            wall_h_w.append(2)
-            with self.assertRaises(ValueError):
-                wall.create_wall(w, w)
-
-    def test_get_windows_square(self):
-        result = [4, 29, 38, 54]
-        window_h_w = [2, 5, 3, 4]
-        window = House()
-        split = zip(window_h_w, result)
-        for w, res in split:
-            window.create_window(w, w)
-            self.assertEqual(res, window.get_windows_square())
-        for w in split:
-            result.append(0)
-            window_h_w.append(0)
-            with self.assertRaises(ValueError):
-                window.create_window(w, w)
-
     def test_get_door_square(self):
         door = House()
         result = [4]
@@ -277,9 +252,8 @@ class TestHouse(unittest.TestCase):
                 door.create_door(d, d)
 
     def test_number_of_rolls_of_wallpapers(self):
-        roll = House()
-        roll.create_wall(20, 10)
-        self.assertEqual(25.0, roll.get_number_of_rolls_of_wallpapers(2, 4))
+        wall = House()
+        self.assertEqual(4.75, wall.get_number_of_rolls_of_wallpapers(2, 4))
 
 
 if __name__ == "__main__":
