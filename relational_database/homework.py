@@ -262,4 +262,3 @@ def task_16_match_all_customers_and_suppliers_by_country(cur):
         ORDER BY c.country, s.country
     """)
     return cur.fetchall()
-
