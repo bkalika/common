@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block main_info %}
+<h5 class="text-uppercase font-weight-bold">Fruits:</h5>
+ <ul class="list-group list-group-flush">
+     {% for fruit in list %}
+        {% if fruit == 'strawberry' %}
+        <li class="list-group-item" style="color: red">{{ fruit }}</li>
+        {% else %}
+        <li class="list-group-item">{{ fruit }}</li>
+        {% endif %}
+     {% endfor %}
+ </ul>
+{% endblock %}
