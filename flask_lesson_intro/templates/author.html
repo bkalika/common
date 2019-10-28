@@ -2,6 +2,7 @@
 {% block main %}
 <h5>{{ name }}</h5>
 <h5>{{ surname }}</h5>
+<img src="{{ url_for('static', filename='me.jpg') }}" width="300" height="300">
 <h5><a href="https://github.com/bkalika">My GitHub account</a></h5>
 <h5>{{ about }}</h5>
 {% endblock %}
