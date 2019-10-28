@@ -168,3 +168,4 @@ def test_task20_equal_two_parameters(equal):
 
 if __name__ == "__main__":
     pytest.main()
+

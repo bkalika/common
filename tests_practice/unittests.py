@@ -1,5 +1,4 @@
 import unittest
-from unittest.mock import patch
 
 from practice import (
                 task1_common_numbers,
@@ -21,7 +20,7 @@ from practice import (
                 task17_factorial,
                 task18_replace_latter,
                 task19_sort_words,
-                task20_equal_two_parameters
+                task20_equal_two_parameters,
                 )
 
 

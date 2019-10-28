@@ -1,22 +1,6 @@
 from math import log
-from typing import List, Any, Union
+from typing import Union
 
-
-# class DiverseTasks:
-#     def __init__(self, word=None, number=None, number_digits=None, zero=None, progression=None, numbers=None,
-#                  missing_number=None, ttuple=None, reversed_word=None, clock=None,
-#                  l_word=None):
-#         self.word = word
-#         self.number = number
-#         self.number_digits = number_digits
-#         self.zero = zero
-#         self.progression = progression
-#         self.numbers = numbers
-#         self.missing_number = missing_number
-#         self.ttuple = ttuple
-#         self.reversed_word = reversed_word
-#         self.clock = clock
-#         self.l_word = l_word
 
 def task1_common_numbers(a, b) -> list:
     return list(set(a) & set(b))
