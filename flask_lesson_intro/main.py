@@ -13,37 +13,37 @@ def get_home_page():
 @app.route("/alarm_clock", methods=['GET', 'POST'])
 def get_page_alarm_clock():
     name = "Alarm clock"
-    return render_template("alarm_clock.html", data=get_data()[0].values(), name=name)
+    return render_template("alarm_clock.html", data=get_data()[0], name=name)
 
 
 @app.route("/headphones", methods=['GET', 'POST'])
 def get_page_headphones():
     name = "Headphones"
-    return render_template("headphones.html", data=get_data()[1].values(), name=name)
+    return render_template("headphones.html", data=get_data()[1], name=name)
 
 
 @app.route("/IPod", methods=['GET', 'POST'])
 def get_ipod():
     name = "iPod"
-    return render_template("IPod.html", data=get_data()[2].values(), name=name)
+    return render_template("IPod.html", data=get_data()[2], name=name)
 
 
 @app.route("/calculator", methods=['GET', 'POST'])
 def get_calculator():
     name = "Calculator"
-    return render_template("calculator.html", data=get_data()[3].values(), name=name)
+    return render_template("calculator.html", data=get_data()[3], name=name)
 
 
 @app.route("/coffeemaker", methods=['GET', 'POST'])
 def get_coffeemaker():
     name = "Coffeemaker"
-    return render_template("coffeemaker.html", data=get_data()[4].values(), name=name)
+    return render_template("coffeemaker.html", data=get_data()[4], name=name)
 
 
 @app.route("/battery_charger", methods=['GET', 'POST'])
 def get_battery_charger():
     name = "Battery charger"
-    return render_template("battery_charger.html", data=get_data()[5].values(), name=name)
+    return render_template("battery_charger.html", data=get_data()[5], name=name)
 
 
 @app.route("/author", methods=['GET', 'POST'])

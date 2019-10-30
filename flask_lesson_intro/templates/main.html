@@ -11,6 +11,11 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 <!--Navbar-->
+<head>
+    {% block title %}
+    <title>{{ data.get('title') }}</title>
+    {% endblock %}
+</head>
 <nav class="navbar navbar-dark bg-dark">
     <a class="navbar-brand" href="/home">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -22,7 +27,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/alarm_clock">Alarm clock</a>
                 <a class="nav-link" href="/headphones">Headphones</a>
-                <a class="nav-link" href="/IPodk">iPod</a>
+                <a class="nav-link" href="/IPod">iPod</a>
                 <a class="nav-link" href="/calculator">Calculator</a>
                 <a class="nav-link" href="/coffeemaker">Coffeemaker</a>
                 <a class="nav-link" href="/battery_charger">Battery charger</a>
@@ -42,13 +47,14 @@
             <!-- Grid column -->
             <div>
                 <!-- Content -->
-                {% block main %}
+                {% block name %}
+                <h3><b>{{ data.get('title') }}</b></h3>
                 {% endblock %}
-                {% block description %}
-                <p>{% for desk in data: %}</p>
-                <p><b>{{ desk }}</b></p>
-                <i>This description contains {{ desk | wordcount }} words</i>
-                <p>{% endfor %}</p>
+                {% block photo %}
+                {% endblock%}
+                {% block text %}
+                    <p>{{ data.get('text') }}</p>
+                <p><i>This description contains {{ data.get('text') | wordcount }} words</i></p>
                 {% endblock %}
             </div>
         </div>
