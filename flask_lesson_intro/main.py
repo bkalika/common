@@ -4,49 +4,43 @@ from utils import get_data
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET', 'POST'])
-@app.route('/home', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
+@app.route('/home', methods=['GET'])
 def get_home_page():
     return render_template("home.html", data=get_data())
 
 
-@app.route("/alarm_clock", methods=['GET', 'POST'])
-def get_page_alarm_clock():
-    name = "Alarm clock"
-    return render_template("alarm_clock.html", data=get_data()[0], name=name)
+@app.route("/iwatch", methods=['GET'])
+def get_page_iwatch():
+    return render_template("iwatch.html", data=get_data()[0])
 
 
-@app.route("/headphones", methods=['GET', 'POST'])
+@app.route("/headphones", methods=['GET'])
 def get_page_headphones():
-    name = "Headphones"
-    return render_template("headphones.html", data=get_data()[1], name=name)
+    return render_template("headphones.html", data=get_data()[1])
 
 
-@app.route("/IPod", methods=['GET', 'POST'])
-def get_ipod():
-    name = "iPod"
-    return render_template("IPod.html", data=get_data()[2], name=name)
+@app.route("/IPod", methods=['GET'])
+def get_page_ipod():
+    return render_template("IPod.html", data=get_data()[2])
 
 
-@app.route("/calculator", methods=['GET', 'POST'])
-def get_calculator():
-    name = "Calculator"
-    return render_template("calculator.html", data=get_data()[3], name=name)
+@app.route("/calculator", methods=['GET'])
+def get_page_calculator():
+    return render_template("calculator.html", data=get_data()[3])
 
 
-@app.route("/coffeemaker", methods=['GET', 'POST'])
-def get_coffeemaker():
-    name = "Coffeemaker"
-    return render_template("coffeemaker.html", data=get_data()[4], name=name)
+@app.route("/coffeemaker", methods=['GET'])
+def get_page_coffeemaker():
+    return render_template("coffeemaker.html", data=get_data()[4])
 
 
-@app.route("/battery_charger", methods=['GET', 'POST'])
-def get_battery_charger():
-    name = "Battery charger"
-    return render_template("battery_charger.html", data=get_data()[5], name=name)
+@app.route("/battery_charger", methods=['GET'])
+def get_page_battery_charger():
+    return render_template("battery_charger.html", data=get_data()[5])
 
 
-@app.route("/author", methods=['GET', 'POST'])
+@app.route("/author", methods=['GET'])
 def get_page_author():
     name = "Author:"
     about = "I did it with little looking"
