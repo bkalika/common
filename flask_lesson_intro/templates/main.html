@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     {% block title %}
-    <title>{{ data.get('title') }}</title>
+    <title>{{ data }}</title>
     {% endblock %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -17,7 +17,6 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
 </head>
-
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="https://cursor.education/uk">
@@ -41,12 +40,12 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('get_page_iwatch') }}">Alarm clock</a>
-                            <a class="nav-link" href="{{ url_for('get_page_headphones') }}">Headphones</a>
-                            <a class="nav-link" href="{{ url_for('get_page_ipod') }}">iPod</a>
-                            <a class="nav-link" href="{{ url_for('get_page_calculator') }}">Calculator</a>
-                            <a class="nav-link" href="{{ url_for('get_page_coffeemaker') }}">Coffeemaker</a>
-                            <a class="nav-link" href="{{ url_for('get_page_battery_charger') }}">Battery charger</a>
+                            <a class="nav-link" href="{{ url_for('get_page', value='iWatch') }}">iWatch</a>
+                            <a class="nav-link" href="{{ url_for('get_page', value='AirPods') }}">Headphones</a>
+                            <a class="nav-link" href="{{ url_for('get_page', value='iPod') }}">iPod</a>
+                            <a class="nav-link" href="{{ url_for('get_page', value='Calculator') }}">Calculator</a>
+                            <a class="nav-link" href="{{ url_for('get_page', value='Coffeemaker') }}">Coffeemaker</a>
+                            <a class="nav-link" href="{{ url_for('get_page', value='Charger') }}">Battery charger</a>
                         </li>
                     </ul>
                 </div>
@@ -58,18 +57,19 @@
 <div class="card mb-3">
     <div class="card-body">
         {% block name %}
-        <h5 class="card-title">{{ data.get('title') }}</h5>
+        <h5 class="card-title">{{ name }}</h5>
         {% endblock %}
         {% block photo %}
+        <img src="{{ url_for('static', filename=name +'.jpeg') }}" alt="Card image cap" width="300px" height="310px">
         {% endblock %}
         {% block text %}
-        <p class="card-text">{{ data.get('text') }}</p>
-        <p class="card-text"><small class="text-muted">This description contains {{ data.get('text') | wordcount }}
+        <p class="card-text">{{ data }}</p>
+        <p class="card-text"><small class="text-muted">This description contains {{ data | wordcount }}
             words</small></p>
         {% endblock %}
     </div>
     <div class="footer-copyright text-center py-3">
-        <a href="{{ url_for('get_page_author') }}">Author</a>
+        <a href="{{ url_for('get_page', value='author') }}">Author</a>
     </div>
 </div>
 </body>

@@ -7,37 +7,16 @@ app = Flask(__name__)
 @app.route('/', methods=['GET'])
 @app.route('/home', methods=['GET'])
 def get_home_page():
-    return render_template("home.html", data=get_data())
+    return render_template("home.html")
 
 
-@app.route("/iwatch", methods=['GET'])
-def get_page_iwatch():
-    return render_template("iwatch.html", data=get_data()[0])
-
-
-@app.route("/headphones", methods=['GET'])
-def get_page_headphones():
-    return render_template("headphones.html", data=get_data()[1])
-
-
-@app.route("/IPod", methods=['GET'])
-def get_page_ipod():
-    return render_template("IPod.html", data=get_data()[2])
-
-
-@app.route("/calculator", methods=['GET'])
-def get_page_calculator():
-    return render_template("calculator.html", data=get_data()[3])
-
-
-@app.route("/coffeemaker", methods=['GET'])
-def get_page_coffeemaker():
-    return render_template("coffeemaker.html", data=get_data()[4])
-
-
-@app.route("/battery_charger", methods=['GET'])
-def get_page_battery_charger():
-    return render_template("battery_charger.html", data=get_data()[5])
+@app.route('/<value>', methods=['GET'])
+def get_page(value):
+    for product in get_data():
+        if product.get('title') == value:
+            name = product.get('title')
+            data = product.get('text')
+            return render_template('main.html', name=name, data=data)
 
 
 @app.route("/author", methods=['GET'])
