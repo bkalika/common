@@ -18,9 +18,8 @@ def get_page(value):
             name = product.get('title')
             data = product.get('text')
             return render_template('main.html', name=name, data=data)
-        # else:
-        #     # name = product
-        #     return error_hangling('main.html')
+    else:
+        return render_template("home.html")
 
 
 @app.route("/author", methods=['GET'])
