@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from utils import get_data
+from werkzeug.utils import redirect
 
 app = Flask(__name__)
 
@@ -17,6 +18,9 @@ def get_page(value):
             name = product.get('title')
             data = product.get('text')
             return render_template('main.html', name=name, data=data)
+        # else:
+        #     # name = product
+        #     return error_hangling('main.html')
 
 
 @app.route("/author", methods=['GET'])
