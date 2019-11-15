@@ -1,0 +1,30 @@
+{% extends "main.html" %}
+{% block title %}
+<title>{{ name_page }}</title>
+{% endblock %}
+{% block body %}
+    <h3>{{ name_page }}</h3>
+    {% for supermarket in data %}
+    {% if request.args.get('location') == supermarket['location'] %}
+    {% if session[supermarket['name']] %}
+    <li class="list-group-item">
+        <a href="{{ url_for('supermarkets.get_supermarket', value=supermarket.id) }}">{{ supermarket.name }}</a>
+    </li>
+    {% else %}
+    <li class="list-group-item">
+        <a href="{{ url_for('supermarkets.get_supermarket', value=supermarket.id) }}">{{ supermarket.name }}</a>
+    </li>
+    {% endif %}
+    {% elif request.args.get('location') == None %}
+    {% if session[supermarket['location']] %}
+    <li class="list-group-item">
+        <a href="{{ url_for('supermarkets.get_supermarket', value=supermarket.id) }}">{{ supermarket.name }}</a>
+    </li>
+    {% else %}
+    <li class="list-group-item">
+        <a href="{{ url_for('supermarkets.get_supermarket', value=supermarket.id) }}">{{ supermarket.name }}</a>
+    </li>
+    {% endif %}
+    {% endif %}
+{% endfor %}
+{% endblock %}

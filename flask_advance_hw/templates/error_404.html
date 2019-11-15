@@ -1,0 +1,9 @@
+{% extends "main.html" %}
+{% block body %}
+<style>
+   .fig {
+    text-align: center; /* Выравнивание по центру */
+   }
+  </style>
+<p class="fig"><img src="{{ url_for('static', filename='error-404.jpg' ) }}" width="700px" height="400"></p>
+{% endblock %}
