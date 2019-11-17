@@ -18,14 +18,12 @@ def is_two_object_has_same_value(first: Any, second: Any) -> bool:
     return first == second
 
 
-
 def is_two_objects_has_same_type(first: Any, second: Any) -> bool:
     """
     If @first and @second has same type should return True
     In another case should return False
-
+    """
     return type(first) == type(second)
-
 
 
 def is_two_objects_is_the_same_objects(first: Any, second: Any) -> bool:
@@ -34,7 +32,6 @@ def is_two_objects_is_the_same_objects(first: Any, second: Any) -> bool:
     In another case should return False
     """
     return id(first) == id(second)
-
 
 
 def multiple_ints(first_value: int, second_value: int) -> int:
@@ -55,6 +52,7 @@ def multiple_ints(first_value: int, second_value: int) -> int:
         raise ValueError
     else:
         return first_value * second_value
+
 
 def multiple_ints_with_conversion(first_value: Any, second_value: Any) -> int:
     """
@@ -108,7 +106,6 @@ def is_word_in_text(word: str, text: str) -> bool:
     return word in text
 
 
-
 def some_loop_exercise() -> list:
     """
     Use loop to create list that contain int values from 0 to 12 except 6 and 7
@@ -128,7 +125,6 @@ def remove_from_list_all_negative_numbers(data: List[int]) -> list:
     return [i for i in data if i >= 0]
 
 
-
 def alphabet() -> dict:
     """
     Create dict which keys is alphabetic characters. And values their number in alphabet
@@ -138,7 +134,6 @@ def alphabet() -> dict:
         >>> {"a": 1, "b": 2 ...}
     """
     return {i: chr(i+96) for i in range(1, 27)}
-
 
 
 def simple_sort(data: List[int]) -> List[list]:
