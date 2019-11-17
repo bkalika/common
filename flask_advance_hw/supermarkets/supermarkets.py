@@ -29,7 +29,7 @@ def add_supermarket():
             "location": form.location.data,
             "image": image_url,
         }
-        all_data = json.load(open('supermarkets/supermarkets.json'))
+        all_data = json.load(open(json_file))
         all_data.append(data)
         write_data(all_data, json_file)
         return redirect(url_for('supermarkets.get_supermarkets'))

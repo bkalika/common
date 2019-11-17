@@ -18,7 +18,7 @@ json_file = 'products/products.json'
 @products.route("/add_product", methods=["GET", "POST"])
 def add_product():
     form = AddProduct()
-    if form.validate_on_submit():
+    if form.validate_on_submit() and form.price.data >= 0:
         image = form.image.data
         image_path = os.path.join('products/static/images', image.filename)
         image.save(image_path)
@@ -27,10 +27,10 @@ def add_product():
             "id": str(uuid.uuid4()),
             "name": form.name.data,
             "description": form.description.data,
-            "price": form.price.data,
+            "price": int(form.price.data),
             "image": image_url,
         }
-        all_data = json.load(open('products/products.json'))
+        all_data = json.load(open(json_file))
         all_data.append(data)
         write_data(all_data, json_file)
         return redirect(url_for('products.get_products'))
