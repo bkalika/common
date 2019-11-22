@@ -29,6 +29,6 @@ def get_page_author():
     surname = "Bohdan Kalika"
     return render_template("author.html", name=name, about=about, surname=surname)
 
-
+  
 if __name__ == "__main__":
     app.run(debug=True)
