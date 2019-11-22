@@ -17,7 +17,6 @@ def return_info():
         return render_template("hello.html")
     elif request.method == 'POST':
         app_list.append("1")
-        print(app_list)
         return 'OK'
     return 'OK'
 
@@ -30,8 +29,7 @@ def request_object_example():
         "request.headers": request.headers,
         "request.data": request.data
     }
-    print(data)
-    return "ok"
+    return 'ok'
 
 
 @app.route('/save_file', methods=['POST'])
