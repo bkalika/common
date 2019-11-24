@@ -2,18 +2,17 @@ import os
 
 
 class Config:
-    SECRET_KEY = 'my-super-secret-key'
-    DEBUG = True
-
-
-class TestConfig:
-    SECRET_KEY = 'my-test-secret-key'
-    DEBUG = True
-
-
-class ProdConfig:
-    SECRET_KEY = 'my-prod-secret-key'
     DEBUG = False
+    SECRET_KEY = 'my-super-secret-key'
+
+
+class TestConfig(Config):
+    DEBUG = True
+    SECRET_KEY = 'my-test-secret-key'
+
+
+class ProdConfig(Config):
+    SECRET_KEY = 'my-prod-secret-key'
 
 
 def run_config():

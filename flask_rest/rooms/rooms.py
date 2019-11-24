@@ -3,7 +3,7 @@ import json
 from flask import request
 from flask_restful import Resource
 
-from flask_rest.rooms.parser import parser, marshal_with_decor
+from flask_rest.rooms.parser import parser
 from flask_rest.rooms.models import Room
 from flask_rest.utils import read_data, write_data
 
@@ -12,7 +12,7 @@ json_data = read_data(json_file)
 rooms_data = json.load(open(json_file))
 
 
-class Room(Resource):
+class Rooms(Resource):
     def get(self, status=None):
         if status is None:
             args = parser.parse_args(strict=True)
@@ -29,7 +29,6 @@ class Room(Resource):
                 if room.get("number") == status:
                     return room
 
-    @marshal_with_decor
     def post(self):
         data = request.json
         rooms_data.append(Room(

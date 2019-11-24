@@ -12,7 +12,7 @@ json_data = read_data(json_file)
 tenants_data = json.load(open(json_file))
 
 
-class Tenant(Resource):
+class Tenants(Resource):
     def get(self, name=None):
         if name is None:
             args = parser.parse_args(strict=True)

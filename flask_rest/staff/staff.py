@@ -3,6 +3,7 @@ import json
 from flask import request
 from flask_restful import Resource
 
+from flask_rest.staff.models import Staff
 from flask_rest.staff.parser import parser
 from flask_rest.utils import read_data, write_data
 
@@ -11,7 +12,7 @@ json_data = read_data(json_file)
 staff_data = json.load(open(json_file))
 
 
-class Staff(Resource):
+class StaffView(Resource):
     def get(self, name=None):
         if name is None:
             args = parser.parse_args(strict=True)
@@ -38,3 +39,20 @@ class Staff(Resource):
         ).to_dict())
         write_data(staff_data, json_file)
         return "Staff hired"
+
+    def patch(self):
+        data = request.json
+        for staff in staff_data:
+            if staff.get("name") == data.get("name"):
+                staff.update(data)
+        write_data(staff_data, json_file)
+        return "Staff updated"
+
+    def delete(self):
+        data = request.json
+        for staff in range(len(staff_data)):
+            if staff_data[staff].get("name") == data.get("name"):
+                del staff_data[staff]
+                break
+        write_data(staff_data, json_file)
+        return "Staff dismissed"

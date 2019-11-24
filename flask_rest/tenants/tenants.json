@@ -11,13 +11,35 @@
         "room_number": 1
     },
     {
+        "name": "Nazariy",
+        "passport_id": "KN20020523",
+        "age": 18,
+        "sex": "male",
+        "address": {
+            "city": "Vinnitsy",
+            "street": "dormitary"
+        },
+        "room_number": "220"
+    },
+    {
         "name": "Ira",
-        "passport_id": "KI 123444",
-        "age": 22,
+        "passport_id": "KN19980127",
+        "age": 21,
         "sex": "female",
         "address": {
             "city": "Kyiv",
-            "street": "V. Vasilkivska"
+            "street": "dormitary"
+        },
+        "room_number": 27
+    },
+    {
+        "name": "Inna",
+        "passport_id": "KN19900128",
+        "age": 29,
+        "sex": "female",
+        "address": {
+            "city": "Kyiv",
+            "street": "Industrialna"
         },
         "room_number": 15
     }

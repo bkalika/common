@@ -4,5 +4,17 @@
         "passport_id": "VT152222",
         "position": "Chef",
         "price": 1000
+    },
+    {
+        "name": "Vlad",
+        "passport_id": "KN19960827",
+        "position": "waiter",
+        "salary": 1500
+    },
+    {
+        "name": "Kirill",
+        "passport_id": "KV544321",
+        "position": "programer",
+        "salary": 2500
     }
 ]
