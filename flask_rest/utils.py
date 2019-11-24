@@ -7,5 +7,5 @@ def read_data(path: str):
 
 
 def write_data(data: str, path: str):
-    with open(path, 'w+') as write_file:
+    with open(path, 'w') as write_file:
         return json.dump(data, write_file, indent=4)

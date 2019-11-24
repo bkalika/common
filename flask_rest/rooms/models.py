@@ -5,10 +5,6 @@ class Room:
         self.status = status
         self.price = price
 
-    # def __repr__(self):
-    #     return "{'number': " + str(self.number) + ", 'level': " + str(
-    #         self.level) + ", 'status': " + str(self.status) + ", 'price': " + str(self.price) + "}"
-
     def to_dict(self):
         return {"number": self.number,
                 "level": self.level,
