@@ -1,0 +1,20 @@
+[
+    {
+        "id": "56406a19-0f3c-4660-8769-3e3752236886",
+        "name": "McDonald's Khreschatyk",
+        "location": "Khreschatyk",
+        "image": "images/mcdonalds_khreshatic.jpg"
+    },
+    {
+        "id": "aaba8b0e-9e29-4071-a402-7ca27a9e7871",
+        "name": "McDonald's Illienka",
+        "location": "Illienka",
+        "image": "images/lukyan.jpg"
+    },
+    {
+        "id": "2348761b-4c83-4426-9d5d-49516acc04d0",
+        "name": "McDonald's Borshchahivska",
+        "location": "Borshchahivska",
+        "image": "images/borshahivska.jpg"
+    }
+]

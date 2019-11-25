@@ -1,0 +1,30 @@
+[
+    {
+        "id": "3659d67c-3034-4a14-9229-32ee42acbd44",
+        "name": "Caesar Roll",
+        "description": "Crispy coated chicken, fresh salad, a slice of tomato and ripe cheese in a wheaten wrap seasoned with special sauce.",
+        "price": "61",
+        "image": "images/cezar-roll.png"
+    },
+    {
+        "id": "a25d940c-f6ca-47dd-8c56-5b44c21f934e",
+        "name": "Texas Beef Burger",
+        "description": "Juicy grilled 100% beef steak with fresh onions and Iceberg salad with two slices of cheese, seasoned with spicy sauceTomato Grill  and appetizing bacon.",
+        "price": "59",
+        "image": "images/texas_burger.png"
+    },
+    {
+        "id": "c0429494-1786-4c55-96fb-96991ffc7291",
+        "name": "French Fries",
+        "description": "Yummy, roasted potato sticks, slightly sprinkled with salt.",
+        "price": "27",
+        "image": "images/FrenchFriesMiddle.png"
+    },
+    {
+        "id": "848bac97-dec7-44b9-93d8-d4c4f5d89e69",
+        "name": "Caesar Salad",
+        "description": "A mix of juicy salad leaves, cherry tomatoes with pieces of crispy coated chicken and grated firm cheese. The sauce for the salad: \u00ab1000 islands\u00bb, \u00abOil and vinegar\u00bb, \u00abCaesar\u00bb  ",
+        "price": "64",
+        "image": "images/caesar_salad.png"
+    }
+]

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+Homework Flask lesson 2
+P.S Hope that after reading that will be tears of happiness not of sad. Good luck and have fun Flask isn’t wtf)
+
+Don’t use database.
+
+Create /home link (without Blueprint) and add a template.
+
+On the page must be 2 links:
+Products
+Supermarkets
+
+Create 2 Blueprint modules: Products, Supermarkets and register them in app. They must have their own template folders.
+
+Products Blueprint:
+
+Links:
+
+/product - user can add product [POST], Get all products[GET]. Add Filter argument support (if user will put ?price=10
+you should return only products with price 10).
+
+/product/
+<id> - user can get particular product[GET].
+
+    Product structure:
+    [
+    {
+    “id”:”...”,
+    “name”: “...”,
+    “description”: “..”,
+    “img_name”: “..”,
+    “price”: “...”
+    },
+    ….
+    ]
+
+    Product Templates:
+
+    all_products.html - marked list of products (each product is a link to the product page.html).
+    There must be link Add product that redirect to add_product.html page.
+    There must be link to the Home page.(somewhere, you can put in in nav or footer, turn on your feeling of
+    beautiful))))
+
+    product.html - There might be name of the product (h1), it’s price, description, and img. (put all images to the
+    static folder in your blueprint module and get it by using url_for and img_name from product).
+    There must be links to the Home page and All Products page.
+
+    add_product.html - POST form with name, description, img_src and price. Don’t forget to generate id and add it to
+    the product before it saves.
+
+    Supermarket Blueprint
+
+    Links:
+
+    /supermarket - user can add supermarket [POST], Get all supermarkets[GET]. Add Filter argument support (if user will
+    put ?location=”Kyiv” you should return only supermarkets that are in Kyiv).
+
+    /supermarket/
+    <id> - user can get particular supermarket[GET].
+
+        Supermarket structure:
+        [
+        {
+        “id”:”...”,
+        “name”: “...”,
+        “location”: “..”,
+        “img_name”: “..”
+        },
+        ….
+        ]
+
+        Supermarket Templates:
+
+        all_supermarkets.html - marked list of supermarkets (each supermarket is a link to the supermarket.html).
+        There must be link Add supermarket that redirect to add_supermarket.html page.
+        There must be link to the Home page.(somewhere, you can put in in nav or footer, turn on your feeling of
+        beautiful))))
+
+        supermarket.html - There might be name of the supermarket (h1), it’s location and img. (put all images to the
+        static folder in your blueprint module and get it by using url_for and img_name from supermarket).
+        There must be links to the Home page and All supermarket page.
+
+        add_supermarket.html - POST form with name, location, img_src. Don’t forget to generate id and add it to the
+        supermarket before it saves.
+
+        Error handles page
+
+        Create error handler templates of 404 error.
+        If user will go to the url that doesn’t exist he will go to this page
+
+
+        Session
+
+        Make links that user has already clicked unclickable.
+        Check if flag in session for this product is True make it unclickable.
+        As user click to the url add a new key to the session[product_name] = True.
+        https://css-tricks.com/how-to-disable-links/
+
+
+        Useful Links:
+        https://css-tricks.com/how-to-disable-links/
+        https://habr.com/ru/post/346342/
+        http://flask.palletsprojects.com/en/1.1.x/
+
+</body>
+</html>

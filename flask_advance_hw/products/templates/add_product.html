@@ -1,0 +1,30 @@
+{% extends "main.html" %}
+
+{% block body %}
+    <h1>Add new product</h1>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.name.label }}<br>
+            {{ form.name(size=120) }}
+        </p>
+        <p>
+            {{ form.description.label }}<br>
+            {{ form.description(size=120) }}
+        </p>
+        <span>
+            {{ form.price.label }}<br>
+            {{ form.price(size=4) }}
+        </p>
+        <p>
+            {{ form.image.label }}<br>
+            {{ form.image() }}
+            {% for error in form.image.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}
+        </p>
+    </form>
+{% endblock %}
