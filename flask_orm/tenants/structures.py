@@ -1,6 +1,6 @@
 from flask_restful import fields
 
-room_structure = {
+tenant_structure = {
     "passport_id": fields.String(8),
     "name": fields.String(40),
     "age": fields.Integer,

@@ -1,8 +1,8 @@
 from flask_restful import fields
 
-room_structure = {
-    "passport_id": fields.String,
-    "name": fields.String,
+staff_structure = {
+    "passport_id": fields.String(8),
+    "name": fields.String(40),
     "position": fields.String(40),
     "salary": fields.Float
 }

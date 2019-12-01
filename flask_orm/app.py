@@ -1,24 +1,24 @@
 from flask import Flask
 from datetime import timedelta
 
-from flask_orm.config import run_config
-from flask_orm.db import db, migrate
-from flask_orm.rooms import rooms_bp
-from flask_orm.tenants import tenants_bp
-# from flask_orm.staff import staff_bp
+from config import get_config
+from db import db, migrate
+from rooms import rooms_bp
+from tenants import tenants_bp
+from staff import staff_bp
 
 
-def create_app():
+def create_app(env="TEST"):
     app = Flask(__name__)
-    app.config.from_object(run_config())
-
-    db.init_app(app=app)
-    db.create_all()
-    migrate.init(app, db)
+    app.config.from_object(get_config(env))
+    with app.app_context():
+        db.init_app(app)
+        db.create_all()
+    migrate.init_app(app, db)
     app.permanent_session_lifetime = timedelta(minutes=20)
 
     app.register_blueprint(rooms_bp)
     app.register_blueprint(tenants_bp)
-    # app.register_blueprint(staff_bp)
+    app.register_blueprint(staff_bp)
 
     return app
