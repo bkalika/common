@@ -22,5 +22,47 @@
         "level": 1,
         "status": "Free",
         "price": 100
+    },
+    {
+        "number": 8,
+        "level": 3,
+        "status": "Busy",
+        "price": 110
+    },
+    {
+        "number": 52,
+        "level": 5,
+        "status": "Free",
+        "price": 110
+    },
+    {
+        "number": 57,
+        "level": 5,
+        "status": "Free",
+        "price": 120
+    },
+    {
+        "number": 59,
+        "level": 5,
+        "status": "Free",
+        "price": 120
+    },
+    {
+        "number": 1,
+        "level": 5,
+        "status": "Free",
+        "price": 120
+    },
+    {
+        "number": 7,
+        "level": 5,
+        "status": "Free",
+        "price": 120
+    },
+    {
+        "number": 15,
+        "level": 5,
+        "status": "Free",
+        "price": 120
     }
 ]

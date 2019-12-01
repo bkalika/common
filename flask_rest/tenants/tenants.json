@@ -42,5 +42,16 @@
             "street": "Industrialna"
         },
         "room_number": 15
+    },
+    {
+        "name": "Galina",
+        "passport_id": "KN19730128",
+        "age": 49,
+        "sex": "female",
+        "address": {
+            "city": "Kyiv",
+            "street": "Golosiivska"
+        },
+        "room_number": 31
     }
 ]

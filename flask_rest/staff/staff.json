@@ -16,5 +16,11 @@
         "passport_id": "KV544321",
         "position": "programer",
         "salary": 2500
+    },
+    {
+        "name": "Vita",
+        "passport_id": "KN19940211",
+        "position": "dancer",
+        "salary": 1500
     }
 ]

@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask_restful import Api
 
-from flask_rest.staff.staff import StaffView
+from staff.routes import StaffView
 
 staff_bp = Blueprint('staff', __name__)
 api = Api(staff_bp)

@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask_restful import Api
 
-from flask_rest.tenants.tenants import Tenants
+from tenants.routes import Tenants
 
 tenants_bp = Blueprint('tenants', __name__)
 app = Api(tenants_bp)

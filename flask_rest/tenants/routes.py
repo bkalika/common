@@ -3,9 +3,9 @@ import json
 from flask import request
 from flask_restful import Resource
 
-from flask_rest.tenants.parser import parser
-from flask_rest.tenants.models import Tenant
-from flask_rest.utils import read_data, write_data
+from tenants.parser import parser
+from tenants.models import Tenant
+from utils import read_data, write_data
 
 json_file = 'tenants/tenants.json'
 json_data = read_data(json_file)
@@ -28,20 +28,27 @@ class Tenants(Resource):
             for tenant in json_data:
                 if tenant.get("name") == name or tenant.get("passport_id") == name:
                     return tenant
+            else:
+                return "404 tenant not found"
 
     def post(self):
         data = request.json
-        tenants_data.append(Tenant(
-            data["name"],
-            data["passport_id"],
-            data["age"],
-            data["sex"],
-            data["city"],
-            data["street"],
-            data["room_number"],
-        ).to_dict())
-        write_data(tenants_data, json_file)
-        return "Tenant added"
+        parser.parse_args(strict=True)
+        for tenant in json_data:
+            if tenant.get("passport_id") == data["passport_id"]:
+                return "Tenant already ordered room"
+        else:
+            tenants_data.append(Tenant(
+                data["name"],
+                data["passport_id"],
+                data["age"],
+                data["sex"],
+                data["city"],
+                data["street"],
+                data["room_number"],
+            ).to_dict())
+            write_data(tenants_data, json_file)
+            return "Tenant added"
 
     def patch(self):
         data = request.json
@@ -57,5 +64,7 @@ class Tenants(Resource):
             if tenants_data[tenant].get("name") == data.get("name"):
                 del tenants_data[tenant]
                 break
+        else:
+            return "Tenant not found"
         write_data(tenants_data, json_file)
         return "Tenants deleted"

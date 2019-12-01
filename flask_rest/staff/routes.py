@@ -3,9 +3,9 @@ import json
 from flask import request
 from flask_restful import Resource
 
-from flask_rest.staff.models import Staff
-from flask_rest.staff.parser import parser
-from flask_rest.utils import read_data, write_data
+from staff.models import Staff
+from staff.parser import parser
+from utils import read_data, write_data
 
 json_file = 'staff/staff.json'
 json_data = read_data(json_file)
@@ -28,17 +28,24 @@ class StaffView(Resource):
             for staff in json_data:
                 if staff.get("name") == name or staff.get("passport_id") == name:
                     return staff
+            else:
+                return "404 staff not found"
 
     def post(self):
         data = request.json
-        staff_data.append(Staff(
-            data["name"],
-            data["passport_id"],
-            data["position"],
-            data["salary"],
-        ).to_dict())
-        write_data(staff_data, json_file)
-        return "Staff hired"
+        parser.parse_args(strict=True)
+        for staff in json_data:
+            if staff.get("passport_id") == data["passport_id"]:
+                return "Staff already works"
+        else:
+            staff_data.append(Staff(
+                data["name"],
+                data["passport_id"],
+                data["position"],
+                data["salary"],
+            ).to_dict())
+            write_data(staff_data, json_file)
+            return "Staff hired"
 
     def patch(self):
         data = request.json
@@ -54,5 +61,7 @@ class StaffView(Resource):
             if staff_data[staff].get("name") == data.get("name"):
                 del staff_data[staff]
                 break
+        else:
+            return "Staff does not work"
         write_data(staff_data, json_file)
         return "Staff dismissed"

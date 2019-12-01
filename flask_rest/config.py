@@ -1,6 +1,3 @@
-import os
-
-
 class Config:
     DEBUG = False
     SECRET_KEY = 'my-super-secret-key'
@@ -15,11 +12,11 @@ class ProdConfig(Config):
     SECRET_KEY = 'my-prod-secret-key'
 
 
-def run_config():
-    env = os.environ.get("ENV")
-    if env == "PROD":
-        return ProdConfig
-    elif env == "TEST":
-        return TestConfig
-    else:
-        return Config
+def get_config(env):
+    return configs.get(env, Config)
+
+
+configs = {
+    "PROD": ProdConfig,
+    "TEST": TestConfig
+}

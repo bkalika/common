@@ -1,13 +1,15 @@
+import os
+
 from flask import Flask, current_app
-from flask_rest.config import run_config
+from config import get_config
 
-from flask_rest.rooms import rooms_bp
-from flask_rest.staff import staff_bp
-from flask_rest.tenants import tenants_bp
+from rooms import rooms_bp
+from staff import staff_bp
+from tenants import tenants_bp
 
-
+env = os.environ.get("ENV")
 app = Flask(__name__)
-app.config.from_object(run_config())
+app.config.from_object(get_config(env=env))
 app.register_blueprint(rooms_bp)
 app.register_blueprint(tenants_bp)
 app.register_blueprint(staff_bp)
