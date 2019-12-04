@@ -1,0 +1,6 @@
+{% extends "main.html" %}
+{% block body %}
+<h2>{{ name }}</h2>
+<li class="list-group-item"><a href="{{ url_for('products.get_products') }}">Products</a></li>
+<p class="list-group-item"><a href="{{ url_for('supermarkets.get_supermarkets') }} ">Supermarkets</a></p>
+{% endblock %}

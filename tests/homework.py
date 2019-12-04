@@ -2,6 +2,7 @@ import math
 
 
 class Rectangle:
+
     def __init__(self, width, height):
         self.width = width
         self.height = height
@@ -31,7 +32,7 @@ class Rectangle:
         :param number_of_corners:
         :return:
         """
-        if number_of_corners > 4:
+        if number_of_corners not in range(1, 5):
             raise ValueError("Rectangle has only 4 corners")
 
         sum_of_corners = 0
@@ -46,6 +47,8 @@ class Rectangle:
         where a, b are height and width respectively
         :return:
         """
+        if self.height <= 0:
+            raise ValueError("Rectangle can not have values less then 1")
         diagonal = math.sqrt(math.pow(self.height, 2) + math.pow(self.width, 2))
         return diagonal
 
@@ -70,5 +73,5 @@ class Rectangle:
         if self.width != self.height:
             raise ValueError("Can't inscribed circle in rectangle with such width and height")
         diagonal = self.get_rectangle_diagonal()
-        radius = diagonal / 2 * math.sqrt(2)
+        radius = diagonal / (2 * math.sqrt(2))
         return radius
