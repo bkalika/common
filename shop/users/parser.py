@@ -9,8 +9,13 @@ user_parser.add_argument("email",
                          type=str,
                          required=True,
                          help="Enter your email. [{error_msg}!]")
+user_parser.add_argument("password",
+                         type=str,
+                         required=True,
+                         help="Enter your password. [{error_msg}!]")
 user_parser.add_argument("role",
                          type=str,
                          required=True,
                          choices=["Admin", "admin", "Customer", "customer"],
                          help="Who you are? Input 'admin' or 'customer'. [{error_msg}!]")
+

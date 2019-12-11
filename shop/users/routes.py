@@ -17,7 +17,6 @@ class UserView(Resource):
             name = args.get("name")
             email = args.get("email")
             role = args.get("role")
-            print(name)
             if id:
                 return User.query.filter_by(id=id).all()
             elif name:
@@ -35,25 +34,25 @@ class UserView(Resource):
         data = request.json
         user_parser.parse_args(strict=True)
         user = User(**data)
-        print(user)
         try:
             db.session.add(user)
             db.session.commit()
         except IntegrityError:
             db.session.rollback()
-        return User.query.all()
+        return user.json()
 
     def patch(self, id):
         data = request.json
         user = User.query.get(id)
         user.name = data.get("name")
         user.email = data.get("email")
+        user.password = data.get("password")
         user.role = data.get("role")
         db.session.commit()
-        return "User updated"
+        return user.json()
 
     def delete(self, id):
         user = User.query.get(id)
         db.session.delete(user)
         db.session.commit()
-        return "User deleted"
+        return user.json()
