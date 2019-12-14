@@ -1,39 +1,57 @@
+import hashlib
 from flask import request
-from flask_restful import Resource, marshal_with
+from flask_jwt_extended import (create_access_token, create_refresh_token, get_jwt_identity, jwt_refresh_token_required)
+from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 
 from db import User, db
 from users.parser import user_parser
-from users.structure import user_structure
 
 
 class UserView(Resource):
-    method_decorators = [marshal_with(user_structure)]
 
-    def get(self, id=None):
-        if id is None:
-            args = request.args
-            id = args.get("id")
-            name = args.get("name")
-            email = args.get("email")
-            role = args.get("role")
-            if id:
-                return User.query.filter_by(id=id).all()
-            elif name:
-                return User.query.filter_by(name=name).all()
-            elif email:
-                return User.query.filter_by(email=email).all()
-            elif role:
-                return User.query.filter_by(role=role).all()
-            else:
-                return User.query.all(), 201
-        else:
-            return User.query.filter_by(id=id).all(), 201
+    def get(self, id):
+        user = User.find_user_by_id(id)
+        if user:
+            return user.json()
+        return {
+            "message": "User not found!"
+        }, 404
 
+    def patch(self, id):
+        user = User.query.get(id)
+        if user:
+            data = request.json
+            user = User.query.get(id)
+            user.name = data.get("name")
+            user.email = data.get("email")
+            user.password = data.get("password")
+            user.role = data.get("role")
+            db.session.commit()
+            return user.json()
+        return {"message": "User not found"}
+
+    def delete(self, id):
+        user = User.query.get(id)
+        if user:
+            user = User.query.get(id)
+            db.session.delete(user)
+            db.session.commit()
+            return {"message": f"User with name {user.name} deleted"}, 200
+        return {"message": "User not found"}, 404
+
+
+class UserRegister(Resource):
     def post(self):
         data = request.json
         user_parser.parse_args(strict=True)
-        user = User(**data)
+        check_email = db.session.query(User.email).filter(User.email == data.get("email")).all()
+        if check_email:
+            return {"message": f"User with email {check_email} already exist"}, 400
+        user = User(data["name"],
+                    data["email"],
+                    hashlib.sha256(data["password"].encode("utf-8")).hexdigest(),
+                    data["role"])
         try:
             db.session.add(user)
             db.session.commit()
@@ -41,18 +59,30 @@ class UserView(Resource):
             db.session.rollback()
         return user.json()
 
-    def patch(self, id):
-        data = request.json
-        user = User.query.get(id)
-        user.name = data.get("name")
-        user.email = data.get("email")
-        user.password = data.get("password")
-        user.role = data.get("role")
-        db.session.commit()
-        return user.json()
 
-    def delete(self, id):
-        user = User.query.get(id)
-        db.session.delete(user)
-        db.session.commit()
-        return user.json()
+class UserLogin(Resource):
+    def post(self):
+        data = request.json
+        authorization = User.query.filter_by(email=data["email"]).first()
+        print('test', authorization)
+        print("test", authorization.password)
+        if authorization.email and authorization.password == hashlib.sha256(data["password"].encode("utf-8")).hexdigest():
+            access_token = create_access_token(identity=authorization.id, fresh=True)  # Puts User ID as Identity in JWT
+            refresh_token = create_refresh_token(identity=authorization.id)  # Puts User ID as Identity in JWT
+            return {
+                "access_token": access_token,
+                "refresh_token": refresh_token
+            }, 200
+        return {
+            "message": "Invalid credentials"
+        }, 401
+
+
+class TokenRefresh(Resource):
+    @jwt_refresh_token_required
+    def post(self):
+        current_user_id = get_jwt_identity()  # Gets Identity from JWT
+        new_token = create_access_token(identity=current_user_id, fresh=False)
+        return {
+            "access_token": new_token
+        }, 200
