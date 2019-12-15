@@ -4,6 +4,8 @@ from flask import Flask
 
 from config import get_config
 from db import db, migrate
+from products import product_bp
+from shops import shop_bp
 from users import user_bp, jwt
 
 env = os.environ.get("ENV")
@@ -19,5 +21,7 @@ def create_app(env=env):
     migrate.init_app(app, db)
 
     app.register_blueprint(user_bp)
+    app.register_blueprint(shop_bp)
+    app.register_blueprint(product_bp)
 
     return app

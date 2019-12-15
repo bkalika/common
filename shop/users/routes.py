@@ -22,7 +22,6 @@ class UserView(Resource):
         user = User.query.get(id)
         if user:
             data = request.json
-            user = User.query.get(id)
             user.name = data.get("name")
             user.email = data.get("email")
             user.password = data.get("password")
