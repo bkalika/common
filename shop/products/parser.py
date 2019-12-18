@@ -1,3 +1,4 @@
+import werkzeug
 from flask_restful import reqparse
 
 product_parser = reqparse.RequestParser(bundle_errors=True)
@@ -22,6 +23,7 @@ product_parser.add_argument("description",
                             required=True,
                             help="Input product description")
 product_parser.add_argument("image",
-                            type=str,
+                            type=werkzeug.FileStorage,
                             required=False,
+                            location='files',
                             help="Input path for product image")

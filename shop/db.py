@@ -95,7 +95,7 @@ class Product(db.Model):
     category = db.Column(db.String(50), nullable=False)
     shop = db.Column(db.String, nullable=True)
     description = db.Column(db.String(1000), nullable=True)
-    image = db.Column(db.String, nullable=True)
+    image = db.Column(db.LargeBinary, upload_to='products/static/images', nullable=True)
     shops = db.relationship('Shop', secondary=shops_products, backref='shops')
     users = db.relationship('User', secondary=users_products, backref='users')
 

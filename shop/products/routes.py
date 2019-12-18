@@ -16,11 +16,22 @@ class ProductView(Resource):
         data = request.json
         product_parser.parse_args()
         product = Product(**data)
+        image = request.files['image']
         product.save_to_db()
         return product.json()
 
+# class UploadWavAPI(Resource):
+#     def post(self):
+#     args = parse.parse_args()
+#     stream = args['audio'].stream wav_file = wave.open(stream, 'rb')
+#     signal = wav_file.readframes(-1) signal = np.fromstring(signal, 'Int16')
+#     fs = wav_file.getframerate() wav_file.close()
+
+
+
+
     def patch(self):
-        pass
+            pass
 
     @jwt_required
     def delete(self, id):
