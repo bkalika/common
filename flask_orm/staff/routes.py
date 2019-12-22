@@ -1,53 +1,48 @@
-from flask import request
-from flask_restful import Resource, marshal_with
+from flask_restful import Resource, marshal_with, abort
 from sqlalchemy.exc import IntegrityError
 
 from db import Staff, db
+from staff.parser import staff_parser_get, staff_parser
 from staff.structures import staff_structure
 
 
 class StaffView(Resource):
-    method_decorators = [marshal_with(staff_structure)]
-
+    @marshal_with(staff_structure)
     def get(self, passport_id=None):
-        if passport_id is None:
-            args = request.args
-            passport_id = args.get("passport_id")
-            name = args.get("name")
-            position = args.get("position")
-            salary = args.get("salary")
-            if passport_id:
-                return Staff.query.filter_by(passport_id=passport_id).all()
-            elif name:
-                return Staff.query.filter_by(name=name).all()
-            elif position:
-                return Staff.query.filter_by(position=position).all()
-            elif salary:
-                return Staff.query.filter_by(salary=salary).all()
-        else:
-            return Staff.query.filter_by(passport_id=passport_id).all(), 201
-        return Staff.query.all(), 201
+        data = staff_parser_get.parse_args()
+        if passport_id:
+            return Staff.query.filter_by(passport_id=passport_id).first_or_404()
+        elif any(tuple(data.values())):
+            return Staff.query.filter_by(**{k: v
+                                            for k, v in data.items()
+                                            if v}).all(), 200
+        return Staff.query.all(), 200
 
     def post(self):
-        data = request.json
-        staff = Staff(**data)
-        try:
-            db.session.add(staff)
-            db.session.commit()
-        except IntegrityError:
-            db.session.rollback()
-        return Staff.query.all()
+        data = staff_parser.parse_args()
+        if not Staff.query.filter_by(passport_id=data['passport_id']).scalar():
+            try:
+                db.session.add(Staff(**data))
+                db.session.commit()
+            except IntegrityError:
+                db.session.rollback()
+            return {"message": f"Staff with passport_id {data['passport_id']} was added!"}
+        abort(404, message=f"Staff with {data['passport_id']} already exist!")
 
     def patch(self, passport_id):
-        data = request.json
+        data = staff_parser_get.parse_args()
         staff = Staff.query.get(passport_id)
-        staff.position = data.get("position")
-        staff.salary = data.get("salary")
-        db.session.commit()
-        return Staff.query.all()
+        if staff:
+            staff.position = data["position"]
+            staff.salary = data["salary"]
+            db.session.commit()
+            return {"message": f"Staff {staff} was updated!"}
+        abort(404, message="Staff not found!")
 
     def delete(self, passport_id):
-        staff = Staff.query.get(passport_id)
-        db.session.delete(staff)
-        db.session.commit()
-        return Staff.query.all()
+        if Staff.query.filter_by(passport_id=passport_id).scalar():
+            staff = Staff.query.get(passport_id)
+            db.session.delete(staff)
+            db.session.commit()
+            return {"message": f"Staff with passport_id {passport_id} was fired!"}
+        abort(404, message=f"Staff with passport_id {passport_id} not found!")

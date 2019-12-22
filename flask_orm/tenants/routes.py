@@ -1,60 +1,51 @@
 from flask import request
-from flask_restful import Resource, marshal_with
+from flask_restful import Resource, marshal_with, abort
 from sqlalchemy.exc import IntegrityError
 
 from db import Tenant, db
+from tenants.parser import tenant_parser_get, tenant_parser, tenant_parser_patch
 from tenants.structures import tenant_structure
 
 
 class Tenants(Resource):
-    method_decorators = [marshal_with(tenant_structure)]
-
+    @marshal_with(tenant_structure)
     def get(self, passport_id=None):
-        if passport_id is None:
-            args = request.args
-            passport_id = args.get("passport_id")
-            name = args.get("name")
-            age = args.get("age")
-            sex = args.get("sex")
-            city = args.get("city")
-            address = args.get("address")
-            if passport_id:
-                return Tenant.query.filter_by(passport_id=passport_id).all()
-            elif name:
-                return Tenant.query.filter_by(name=name).all()
-            elif age:
-                return Tenant.query.filter_by(age=age).all()
-            elif sex:
-                return Tenant.query.filter_by(sex=sex).all()
-            elif city:
-                return Tenant.query.filter_by(city=city).all()
-            elif address:
-                return Tenant.query.filter_by(address=address).all()
-        else:
-            return Tenant.query.filter_by(passport_id=passport_id).all(), 201
-        return Tenant.query.all(), 201
+        data = tenant_parser_get.parse_args()
+        if passport_id:
+            return Tenant.query.filter_by(passport_id=passport_id).first_or_404()
+        elif any(tuple(data.values())):
+            return Tenant.query.filter_by(**{k: v
+                                             for k, v in data.items()
+                                             if v}).all(), 200
+        return Tenant.query.all(), 200
 
     def post(self):
-        data = request.json
-        tenant = Tenant(**data)
-        try:
-            db.session.add(tenant)
-            db.session.commit()
-        except IntegrityError:
-            db.session.rollback()
-        return Tenant.query.all()
+        data = tenant_parser.parse_args()
+        if not Tenant.query.filter_by(passport_id=data["passport_id"]).scalar():
+            try:
+                db.session.add(Tenant(**data))
+                db.session.commit()
+            except IntegrityError:
+                db.session.rollback()
+            return {"msg": "Tenant was added!"}
+        abort(404, message="Tenant already exist!")
 
     def patch(self, passport_id):
-        data = request.json
+        data = tenant_parser_patch.parse_args()
         tenant = Tenant.query.get(passport_id)
-        tenant.age = data.get("age")
-        tenant.city = data.get("city")
-        tenant.address = data.get("address")
-        db.session.commit()
-        return Tenant.query.all()
+        print(tenant_parser_patch)
+        if tenant:
+            tenant.age = data["age"]
+            tenant.city = data["city"]
+            tenant.address = data["address"]
+            db.session.commit()
+            return {"msg": f"Tenant {passport_id} was updated!"}
+        abort(404, message="Tenant not found!")
 
     def delete(self, passport_id):
-        tenant = Tenant.query.get(passport_id)
-        db.session.delete(tenant)
-        db.session.commit()
-        return Tenant.query.all()
+        if Tenant.query.filter_by(passport_id=passport_id).scalar():
+            tenant = Tenant.query.get(passport_id)
+            db.session.delete(tenant)
+            db.session.commit()
+            return {"message": f"Tenant {passport_id} was deleted!"}
+        abort(404, message=f"Tenant {passport_id} not found!")
