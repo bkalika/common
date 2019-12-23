@@ -1,0 +1,71 @@
+Homework Flask lesson 3
+
+Create Rest Client for Hotel. Good luck and have fun :)
+
+Entities:
+
+Tenants, Rooms, Staff.
+
+Requirements:
+
+Rooms:
+get info about all rooms
+get info about particular room
+get info about all available rooms (use filter)
+get info about all closed rooms (use filter)
+update info about room
+add new room
+delete room
+
+Tenants:
+get info about all tenants
+get info about particular tenant
+update info about tenant
+delete tenant
+
+Staff:
+get info about all staff
+get info about particular staff
+update info about staff
+delete staff
+
+Entities structure:
+
+Rooms:
+Number
+Level
+Status
+Price
+
+
+Tenants:
+Name
+PassportID
+Age
+Sex
+Address(city, street) use Nested
+RoomNumber
+
+Staff:
+Name
+PassportID
+Position
+Salary
+
+Task
+
+Create REST client API, Using Blueprint’s Modules and Flask-Restful Api.
+Add 2 different configs objects: Config(default), TestConfig, ProductionConfig and run one of them depends on environment variable value ENV=PROD or ENV=TEST.
+Your routes should return json files.
+In your program you should use requparse and marshal_with.
+
+Example of data:
+
+class Staff:
+	def __init__(self, name, passport_id, position, salary):
+		self.name = name
+		self.passport_id = passport_id
+		self.position = position
+		self.salary = salary
+
+staff = [Staff(“Jack”, “AA1111”, “waiter”, 100), Staff(“Julia”, “AA2222”, “cook”, 120) ...]
