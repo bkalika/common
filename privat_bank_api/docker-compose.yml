@@ -2,6 +2,7 @@ version: "3.3"
 services:
   concierge:
     build: .
+    restart: always
     ports:
     - 8000:8000
     healthcheck:
