@@ -24,6 +24,6 @@ product_parser.add_argument("description",
                             help="Input product description")
 product_parser.add_argument("image",
                             type=werkzeug.FileStorage,
-                            required=False,
+                            required=True,
                             location='files',
                             help="Input path for product image")

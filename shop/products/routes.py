@@ -1,6 +1,11 @@
+import os
+import wave
+from xml import parsers
+
+import werkzeug
 from flask import request
 from flask_jwt_extended import jwt_required
-from flask_restful import Resource
+from flask_restful import Resource, reqparse
 
 from db import Product
 from products.parser import product_parser
@@ -14,11 +19,18 @@ class ProductView(Resource):
     @jwt_required
     def post(self):
         data = request.json
+        print(data)
         product_parser.parse_args()
-        product = Product(**data)
-        image = request.files['image']
+        parser = parsers.MultiPartParser()
+        file = request.files['file']
+        path = os.path.join('products/static', file.filename)
+        product = Product(data["name"], data["price"], data["category"], data["shop"], data["description"], path)
+        print(file)
+        print(product)
+        file.save(path)
         product.save_to_db()
-        return product.json()
+        return {"msg": "file was saved"}
+        # return product.json()
 
 # class UploadWavAPI(Resource):
 #     def post(self):
@@ -26,9 +38,6 @@ class ProductView(Resource):
 #     stream = args['audio'].stream wav_file = wave.open(stream, 'rb')
 #     signal = wav_file.readframes(-1) signal = np.fromstring(signal, 'Int16')
 #     fs = wav_file.getframerate() wav_file.close()
-
-
-
 
     def patch(self):
             pass
@@ -44,3 +53,14 @@ class ProductView(Resource):
         return {
             "message": "Product not found!"
         }, 404
+
+
+class UploadImage(Resource):
+    def post(self):
+        file = request.files['file']
+        path = os.path.join('products/static', file.filename)
+        print(file)
+        file.save(path)
+        return {"msg": "file was saved"}
+
+
