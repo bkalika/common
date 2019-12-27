@@ -1,0 +1,32 @@
+Homework Flask lesson 4
+
+Create models for your application that you’ve done in Homework Flask lesson 3.
+Rewrite code from adding/updating/deleting/reading from dict to ORM.
+Good luck and have fun :)
+
+Room:
+Number (primary key)
+Level
+Status
+Price
+TenantID
+
+Tenants:
+PassportID(primary key)
+Name
+Age
+Sex
+City
+Address
+
+Staff:
+PassportID(primary key)
+Name
+Position
+Salary
+
+Relationship between Room and tenants one-to-many
+(One tenant can book a few rooms, but one room can be booked by one tenant)
+
+Relationship between Staff and Room many-to-many
+(One staff can serve a few rooms, one room can be served by a few staff)
