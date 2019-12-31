@@ -3,6 +3,7 @@ codestyles/
 inspection/
 _linux/
 venv-sql/
+djangoenv/
 colors.scheme.xml
 dbnavigator.xml
 debugger.xml
