@@ -1,8 +1,15 @@
+from flask import session
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 migrate = Migrate()
+
+ACCESS = {
+    "guest": 0,
+    "user": 1,
+    "admin": 2,
+}
 
 
 class User(db.Model):
@@ -35,6 +42,21 @@ class User(db.Model):
     @classmethod
     def find_user_by_id(cls, id):
         return cls.query.filter_by(id=id).first()
+
+    def is_admin(self):
+        return self.access == ACCESS['admin']
+
+    def allowed(self, access_level):
+        return self.access >= access_level
+
+    @classmethod
+    def profile(cls, email):
+        get_email = session.get('email')
+        if not get_email:
+            return {"User not authorised!"}
+        user = cls.query.filter_by(email=email).first()
+        return {"msg": f"User {user} authorised"}
+
 
 
 class Shop(db.Model):
@@ -95,11 +117,11 @@ class Product(db.Model):
     category = db.Column(db.String(50), nullable=False)
     shop = db.Column(db.String, nullable=True)
     description = db.Column(db.String(1000), nullable=True)
-    image = db.Column(db.LargeBinary, nullable=True)
+    image = db.Column(db.String, nullable=True)
     shops = db.relationship('Shop', secondary=shops_products, backref='shops')
     users = db.relationship('User', secondary=users_products, backref='users')
 
-    def __init__(self, name, price, category, shop, description, image):
+    def __init__(self, name, price, category, shop, description, image=None):
         self.name = name,
         self.price = price
         self.category = category
