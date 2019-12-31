@@ -4,7 +4,7 @@ import requests
 from django.test import Client, TestCase
 from django.urls import reverse
 
-PRIVAT_API = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5"
+from .settings import PRIVAT_API
 
 
 class StatusView(TestCase):

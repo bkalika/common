@@ -2,7 +2,9 @@ import requests
 from django.http import HttpResponse
 from django.shortcuts import render
 
-PRIVAT_API = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5"
+
+from .settings import PRIVAT_API
+
 try:
     response = requests.get(f'{PRIVAT_API}')
     exchange = response.json()

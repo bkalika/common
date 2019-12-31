@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+# url to get privat-bank api:
+PRIVAT_API = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5"
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
