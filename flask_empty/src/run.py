@@ -1,9 +1,10 @@
-from flask import Response, Flask, json, request
+from flask import Response, Flask
 
 from infrastructure import DB
-from model import Restaurant
-from src.routes import tables
+# from src import tables
+# from src import restaurant
 from src.routes.restaurant import restaurant
+from src.routes.tables import tables
 
 
 def setup_db():
