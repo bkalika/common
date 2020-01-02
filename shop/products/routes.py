@@ -14,8 +14,13 @@ from products.structures import product_structure
 
 class ProductView(Resource):
     @marshal_with(product_structure)
-    @jwt_required
-    def get(self):
+    # @jwt_required
+    def get(self, id=None):
+        if id:
+            product = Product.find_product_by_id(id)
+            if product:
+                return product.json()
+            return {"msg": "product id not found!"}
         return Product.query.all(), 201
 
     @jwt_required

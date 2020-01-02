@@ -142,7 +142,7 @@ class Product(db.Model):
 
     @classmethod
     def find_product_by_id(cls, id):
-        return cls.query.filter_by(id=id).all()
+        return cls.query.filter_by(id=id).first()
 
     def json(self):
         return {
@@ -153,3 +153,11 @@ class Product(db.Model):
             "description": self.description,
             "image": self.image,
         }
+
+
+orders = db.Table(
+    'orders',
+    db.Column('id', db.Integer, primary_key=True, autoincrement=True),
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
+    db.Column('product_id', db.Integer, db.ForeignKey('products.id'), primary_key=True)
+    )

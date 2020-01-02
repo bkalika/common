@@ -12,6 +12,7 @@ class UserView(Resource):
 
     def get(self, id):
         user = User.find_user_by_id(id)
+        print(user)
         if user:
             return user.json()
         return {
