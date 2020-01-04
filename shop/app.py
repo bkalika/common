@@ -2,8 +2,10 @@ import os
 
 from flask import Flask
 
+from category import category_bp
 from config import get_config
 from db import db, migrate
+from orders import order_bp
 from products import product_bp
 from shops import shop_bp
 from users import user_bp, jwt
@@ -23,5 +25,7 @@ def create_app(env=env):
     app.register_blueprint(user_bp)
     app.register_blueprint(shop_bp)
     app.register_blueprint(product_bp)
+    app.register_blueprint(order_bp)
+    app.register_blueprint(category_bp)
 
     return app

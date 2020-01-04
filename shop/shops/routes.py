@@ -2,7 +2,7 @@ from flask import request
 from flask_jwt_extended import get_jwt_identity, create_access_token, jwt_required
 from flask_restful import Resource
 
-from db import Shop
+from shops.db import Shop
 from shops.parser import shop_parser
 
 

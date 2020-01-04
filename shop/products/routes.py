@@ -7,7 +7,7 @@ from flask import request
 from flask_jwt_extended import jwt_required
 from flask_restful import Resource, abort, marshal_with
 
-from db import Product
+from .db import Product
 from products.parser import product_parser
 from products.structures import product_structure
 

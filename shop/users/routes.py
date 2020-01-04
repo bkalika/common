@@ -4,7 +4,7 @@ from flask_jwt_extended import (create_access_token, create_refresh_token, get_j
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 
-from db import User, db
+from .db import User, db
 from users.parser import user_parser
 
 
