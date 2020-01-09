@@ -7,6 +7,7 @@ from config import get_config
 from db import db, migrate
 from orders import order_bp
 from products import product_bp
+from shop_products import shops_products_bp
 from shops import shop_bp
 from users import user_bp, jwt
 
@@ -27,5 +28,6 @@ def create_app(env=env):
     app.register_blueprint(product_bp)
     app.register_blueprint(order_bp)
     app.register_blueprint(category_bp)
+    app.register_blueprint(shops_products_bp)
 
     return app

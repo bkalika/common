@@ -7,7 +7,7 @@ from flask import request
 from flask_jwt_extended import jwt_required
 from flask_restful import Resource, abort, marshal_with
 
-from .db import Product
+from products.db import Product
 from products.parser import product_parser
 from products.structures import product_structure
 
@@ -23,7 +23,8 @@ class ProductView(Resource):
             return {"msg": "product id not found!"}
         return Product.query.all(), 201
 
-    @jwt_required
+    # @jwt_required
+    @marshal_with(product_structure)
     def post(self):
         data = request.json
         product_parser.parse_args()
@@ -31,19 +32,27 @@ class ProductView(Resource):
         product.save_to_db()
         return product.json()
 
-    @jwt_required
+    # @jwt_required
     def patch(self, id):
-        file = request.files['file']
-        print(id, file)
-        path = os.path.join('products/static', file.filename)
-        print(path)
         product = Product.query.get(id)
         if product:
-            product.image = path
-            file.save(path)
-            product.save_to_db()
-            return {"msg": "Image was uploaded!"}
-        abort(404, message="Product id was not found!")
+            try:
+                file = request.files['file']
+                path = os.path.join('products/static', file.filename)
+                product.image = path
+                file.save(path)
+                product.save_to_db()
+                return {"msg": "Image was uploaded!"}
+            except:
+                data = request.json
+                product.name = data.get('name')
+                product.price = data.get('price')
+                product.shop = data.get('shop')
+                product.category = data.get('category')
+                product.description = data.get('description')
+                product.save_to_db()
+                return {"message": f"Product {product.name} was updated!"}
+        abort(404, message=f"Product with id {id} was not found!")
 
     @jwt_required
     def delete(self, id):
@@ -53,6 +62,4 @@ class ProductView(Resource):
             return {
                 "message": "Product deleted!"
             }, 200
-        return {
-            "message": "Product not found!"
-        }, 404
+        abort(404, message=f"Product with id {id} not found!")

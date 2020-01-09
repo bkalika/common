@@ -1,6 +1,7 @@
 from flask_migrate import Migrate
 
 from db import db
+# from shop_products.db import shops_products
 
 migrate = Migrate()
 
@@ -12,6 +13,7 @@ class Shop(db.Model):
     city = db.Column(db.String(60), nullable=False)
     name = db.Column(db.String(60), nullable=False)
     owner = db.Column(db.String(60), nullable=False)
+    products = db.relationship('Product', secondary='shops_products')
 
     def __init__(self, city, name, owner):
         self.city = city
@@ -19,7 +21,7 @@ class Shop(db.Model):
         self.owner = owner
 
     def __repr__(self):
-        return f'Shop {self.name}, owner: {self.owner}, located in {self.city}'
+        return f'Shop: {self.name}, owner: {self.owner}, located in: {self.city}'
 
     def save_to_db(self):
         db.session.add(self)
@@ -27,9 +29,10 @@ class Shop(db.Model):
 
     def json(self):
         return {
-                   "city": self.city,
-                   "name": self.name,
-                   "owner": self.owner
+                "id": self.id,
+                "city": self.city,
+                "name": self.name,
+                "owner": self.owner
                }, 200
 
     @classmethod

@@ -4,12 +4,12 @@ from flask_jwt_extended import (create_access_token, create_refresh_token, get_j
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 
-from .db import User, db
+from db import db
+from users.db import User
 from users.parser import user_parser
 
 
 class UserView(Resource):
-
     def get(self, id):
         user = User.find_user_by_id(id)
         print(user)
@@ -25,7 +25,7 @@ class UserView(Resource):
             data = request.json
             user.name = data.get("name")
             user.email = data.get("email")
-            user.password = data.get("password")
+            user.password = hashlib.sha256(data["password"].encode("utf-8")).hexdigest()
             user.role = data.get("role")
             db.session.commit()
             return user.json()
@@ -64,8 +64,6 @@ class UserLogin(Resource):
     def post(self):
         data = request.json
         authorization = User.query.filter_by(email=data["email"]).first()
-        print('test', authorization)
-        print("test", authorization.password)
         if authorization.email and authorization.password == hashlib.sha256(data["password"].encode("utf-8")).hexdigest():
             access_token = create_access_token(identity=authorization.id, fresh=True)  # Puts User ID as Identity in JWT
             refresh_token = create_refresh_token(identity=authorization.id)  # Puts User ID as Identity in JWT

@@ -8,14 +8,6 @@ from db import db
 migrate = Migrate()
 
 
-# orders = db.Table(
-#     'orders',
-#     db.Column('id', db.Integer, primary_key=True, autoincrement=True),
-#     db.Column('created_at', db.DateTime, nullable=False, default=datetime.utcnow)
-#     db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
-#     db.Column('product_id', db.Integer, db.ForeignKey('products.id'), primary_key=True)
-# )
-
 class Order(db.Model):
     __tablename__ = 'orders'
 

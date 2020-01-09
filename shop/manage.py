@@ -2,6 +2,7 @@ from flask_migrate import MigrateCommand
 from flask_script import Manager
 
 from app import create_app
+from shop_products import ShopProductView
 
 manager = Manager(create_app)
 
